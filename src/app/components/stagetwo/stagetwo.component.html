@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <a routerLink="">Back</a>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <label>First name</label>
+        <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label>Last name</label>
+        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationTooltipUsername">Username</label>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Username" formControlName="userName">
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label>City</label>
+        <input type="text" class="form-control" placeholder="City" formControlName="city">
+      </div>
+      <div class="col-md-3 mb-3">
+        <label>State</label>
+        <select class="custom-select" formControlName="state">
+          <option selected disabled value="">Choose...</option>
+          <option>State 1</option>
+          <option>State 2</option>
+          <option>State 3</option>
+          <option>State 4</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label>Zip</label>
+        <input type="text" class="form-control" placeholder="Zip" formControlName="zip">
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Submit form</button>
+  </form>
+</div>

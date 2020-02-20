@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'https://accountuat.torawallet.gr/gui',
+  samlUrl: 'https://accountuat.torawallet.gr/saml',
+  authUrl: 'https://accountuat.torawallet.gr/auth',
+  appUrl: 'https://accountuat.torawallet.gr/'
 };
 
 /*

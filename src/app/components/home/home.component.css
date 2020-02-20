@@ -1,0 +1,10 @@
+.row div {
+    outline: 2px solid #ccc;
+    min-height: 200px;
+}
+
+.row .col-sm:hover {
+    cursor: pointer;
+    background-color: rgb(224, 224, 224);
+    transition: all 0.4s;
+}
