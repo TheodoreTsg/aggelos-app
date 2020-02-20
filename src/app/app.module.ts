@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { NoPageFoundComponent } from './components/no-page-found/no-page-found.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     StagetwoComponent,
     StagethreeComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    NoPageFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
       { path: 'stageone', component: StageoneComponent },
       { path: 'stagetwo', component: StagetwoComponent },
       { path: 'stagethree', component: StagethreeComponent },
+      { path: '**', component: NoPageFoundComponent }
     ])
   ],
   providers: [],

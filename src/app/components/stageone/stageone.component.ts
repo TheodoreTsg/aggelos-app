@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 @Component({
   selector: 'app-stageone',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stageone.component.css']
 })
 export class StageoneComponent implements OnInit {
+  calendarPlugins = [dayGridPlugin];
 
   constructor() { }
 
