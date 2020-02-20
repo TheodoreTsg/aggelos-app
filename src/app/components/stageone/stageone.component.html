@@ -1,5 +1,11 @@
-
 <div class="container-fluid">
   <a routerLink="">Back</a>
-  <full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"></full-calendar>
+  <div class="container wrapper">
+    <full-calendar defaultView="dayGridMonth" 
+                  [plugins]="calendarPlugins"
+                  [header]="{ left: 'dayGridMonth,timeGridWeek,timeGridDay today',
+                              center: 'title',
+                              right: 'prevYear,prev,next,nextYear'}">
+    </full-calendar>
+  </div>
 </div>
