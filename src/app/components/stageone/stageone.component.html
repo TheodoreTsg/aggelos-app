@@ -1,12 +1,13 @@
 <div class="container-fluid">
-  <a routerLink="">Back</a>
+  <!-- <a routerLink="">Back</a> -->
   <div class="container wrapper">
     <full-calendar defaultView="dayGridMonth" 
                   [plugins]="calendarPlugins"
-                  [height]="550"
-                  [header]="{ left: 'dayGridMonth,timeGridWeek,timeGridDay today',
+                  [aspectRatio]="2.2"
+                  [navLinks]="true"
+                  [header]="{ left: 'prevYear,prev,next,nextYear today',
                               center: 'title',
-                              right: 'prevYear,prev,next,nextYear'}">
+                              right: ' dayGridMonth,timeGridWeek,timeGridDay'}">
     </full-calendar>
   </div>
 </div>

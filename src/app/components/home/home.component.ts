@@ -12,4 +12,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  stageClicked(alt: string) {
+    console.log('Stage Clicked -> ', alt);
+  }
+
 }

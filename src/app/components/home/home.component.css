@@ -1,10 +1,27 @@
+.row {
+    margin-top: 10px;
+}
+
 .row div {
-    outline: 2px solid #ccc;
-    min-height: 200px;
+  outline: 2px solid #ccc;
+  min-height: 200px;
 }
 
 .row .col-sm:hover {
-    cursor: pointer;
-    background-color: rgb(224, 224, 224);
-    transition: all 0.4s;
+  cursor: pointer;
+  background-color: rgb(224, 224, 224);
+  transition: all 0.4s;
+}
+
+.carousel {
+  background-color: lightgray;
+  margin-top: 10px;
+}
+
+img {
+  width: 40%;
+}
+
+img:hover {
+  cursor: pointer;
 }
