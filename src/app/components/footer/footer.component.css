@@ -1,8 +1,8 @@
 footer {
-  background-color: dimgrey;
+  background-color: steelblue;
   position: absolute;
   bottom: 0;
   width: 100%;
   text-align: center;
-  color: white;
+  color: black;
 }

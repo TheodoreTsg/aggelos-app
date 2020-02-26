@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NoPageFoundComponent } from './components/no-page-found/no-page-found.component';
+import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { NoPageFoundComponent } from './components/no-page-found/no-page-found.c
     ReactiveFormsModule,
     HttpClientModule,
     FullCalendarModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'stageone', component: StageoneComponent },
@@ -38,7 +41,7 @@ import { NoPageFoundComponent } from './components/no-page-found/no-page-found.c
       { path: '**', component: NoPageFoundComponent }
     ])
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

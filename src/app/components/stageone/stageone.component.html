@@ -1,13 +1,35 @@
 <div class="container-fluid">
   <!-- <a routerLink="">Back</a> -->
   <div class="container wrapper">
-    <full-calendar defaultView="dayGridMonth" 
-                  [plugins]="calendarPlugins"
-                  [aspectRatio]="2.2"
-                  [navLinks]="true"
-                  [header]="{ left: 'prevYear,prev,next,nextYear today',
+    <full-calendar defaultView="dayGridMonth" (dateClick)="handleDateClick(mymodal, $event)"
+      (select)="selectDates($event)" [selectable]="true" [eventLimit]="3" (eventClick)="eventClicked($event)"
+      [plugins]="calendarPlugins" [height]="595" [events]="calendarEvents" [header]="{ left: 'prevYear,prev,next,nextYear today',
                               center: 'title',
                               right: ' dayGridMonth,timeGridWeek,timeGridDay'}">
     </full-calendar>
   </div>
 </div>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{modalDate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="form-group col-md-6">
+        <label class="control-label">
+          Input:
+          <div class="form-group">
+            <input type="text" formControlName="input" placeholder="Type Here" class="form-control input-md">
+          </div>
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>
