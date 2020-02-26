@@ -25,6 +25,7 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
+              "src/css/fontawesome-free-5.12.1-web/css/all.css",
               "node_modules/@fullcalendar/core/main.css",
               "node_modules/@fullcalendar/daygrid/main.css",
               "node_modules/@fullcalendar/timegrid/main.css"
