@@ -29,7 +29,8 @@ export class StageoneComponent implements OnInit {
       backdropClass: 'customBackdrop'
     };
     this.form = this.formBuidler.group({
-      input: new FormControl('')
+      input: new FormControl(''),
+      title: new FormControl('')
     });
   }
 
@@ -47,7 +48,6 @@ export class StageoneComponent implements OnInit {
   }
 
   open(modal: any, arg: any) {
-    console.log('Im in modal with arg ', arg);
     this.modalService.open(modal, this.modalOptions).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -68,7 +68,6 @@ export class StageoneComponent implements OnInit {
   }
 
   selectDates(arg: any) {
-    console.log('Selected date is ', arg);
     console.log('Selected ' + arg.startStr + ' to ' + arg.endStr);
   }
 
