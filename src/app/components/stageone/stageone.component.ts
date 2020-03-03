@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { EventInput } from '@fullcalendar/core';
@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarEv } from '../../mockups/mocks';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-stageone',
@@ -14,67 +14,66 @@ import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng
   styleUrls: ['./stageone.component.css']
 })
 export class StageoneComponent implements OnInit {
+
+  @ViewChild('dt') dt: ElementRef;
   form: FormGroup;
   calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
   calendarEvents: EventInput[] = [];
-  modalOptions: NgbModalOptions;
   closeResult: string;
-  modalDate: string;
+  date7: Date;
 
-  constructor(public datepipe: DatePipe, private modalService: NgbModal, private formBuidler: FormBuilder) {
-    this.calendarEvents = CalendarEv;
-    this.modalOptions = {
-      backdrop: true,
-      centered: true,
-      backdropClass: 'customBackdrop'
-    };
+  constructor(public datepipe: DatePipe, private formBuidler: FormBuilder) {
     this.form = this.formBuidler.group({
-      input: new FormControl(''),
-      title: new FormControl('')
+      fromDate: new FormControl('', Validators.required),
+      toDate: new FormControl('', Validators.required),
+      title: new FormControl('', Validators.required)
     });
   }
 
   ngOnInit() {
+    this.calendarEvents = CalendarEv;
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-  open(modal: any, arg: any) {
-    this.modalService.open(modal, this.modalOptions).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  handleDateClick(modal: any, arg: any) {
-    // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-    //   this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
-    //     title: 'New Event',
-    //     start: arg.date
-    //   });
-    // }
-    this.modalDate = this.datepipe.transform(arg.date, 'dd/MM/yyyy');
-    this.form.controls['input'].setValue(this.datepipe.transform(arg.date, 'dd/MM/yyyy, h:mm a'));
-    this.open(modal, arg);
+  handleDateClick(arg: any) {
+    this.form.controls['fromDate'].setValue(arg.date);
+    this.form.controls['toDate'].setValue(arg.date);
+    jQuery(this.dt.nativeElement).modal('show');
   }
 
   selectDates(arg: any) {
+    const tempDate = new Date();
+    tempDate.setHours(0, 0, 0);
+    tempDate.setDate(arg.end.getDate() - 1);
     console.log('Selected ' + arg.startStr + ' to ' + arg.endStr);
+    this.form.controls['fromDate'].setValue(arg.start);
+    this.form.controls['toDate'].setValue(tempDate);
+    jQuery(this.dt.nativeElement).modal('show');
+  }
+
+  onSubmit() {
+    console.log('Submitted!');
+    console.log('Values are ', this.form.value);
+    this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
+      title: this.form.value.title,
+      start: this.form.value.fromDate,
+      end: this.form.value.toDate
+    });
+    this.form.reset();
+    jQuery(this.dt.nativeElement).modal('hide');
   }
 
   eventClicked(arg: any) {
     const eventObj = arg.event;
     console.log('Object is ', eventObj);
-    alert('clicked ' + eventObj.title + ' is at ' + this.datepipe.transform(eventObj.start, 'dd/MM/yyyy, h:mm a'));
+    if (eventObj.end === null) {
+      alert(eventObj.title + ' is at ' + this.datepipe.transform(eventObj.start, 'dd/MM/yyyy, h:mm a'));
+    } else {
+      alert(eventObj.title + ' is at ' + this.datepipe.transform(eventObj.start, 'dd/MM/yyyy, h:mm a') +
+        ' - ' + this.datepipe.transform(eventObj.end, 'dd/MM/yyyy, h:mm a'));
+    }
   }
-
+  applyChanges() {
+    alert('Changes applied! Open console to see the events.');
+    console.log('Events are ', this.calendarEvents);
+  }
 }

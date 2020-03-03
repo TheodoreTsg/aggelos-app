@@ -1,46 +1,60 @@
 <div class="container-fluid">
-  <!-- <a routerLink="">Back</a> -->
   <div class="container wrapper">
-    <full-calendar defaultView="dayGridMonth" (dateClick)="handleDateClick(mymodal, $event)" [editable]="true"
-      (select)="selectDates($event)" [selectable]="true" [eventLimit]="3" (eventClick)="eventClicked($event)"
-      [plugins]="calendarPlugins" [height]="595" [events]="calendarEvents" [header]="{ left: 'prevYear,prev,next,nextYear today',
-                              center: 'title',
-                              right: ' dayGridMonth,timeGridWeek,timeGridDay'}">
-    </full-calendar>
+      <full-calendar defaultView="dayGridMonth" (dateClick)="handleDateClick($event)" [editable]="true"
+        [aspectRatio]="2.3" (select)="selectDates($event)" [selectable]="true" [eventLimit]="3"
+        (eventClick)="eventClicked($event)" [plugins]="calendarPlugins" [events]="calendarEvents" [header]="{ left: 'prevYear,prev,next,nextYear today',
+                                    center: 'title',
+                                    right: ' dayGridMonth,timeGridWeek,timeGridDay'}">
+      </full-calendar>
+      <button class="btn btn-success" (click)="applyChanges()">Apply Changes</button>
   </div>
 </div>
 
-<ng-template #mymodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add a new Event on {{modalDate}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="form">
-      <div class="row">
-        <div class="form-group col">
-          <label class="control-label">
-            Title:
-            <div class="form-group">
-              <input type="text" formControlName="title" placeholder="Title" class="form-control input-md">
-            </div>
-          </label>
-        </div>
-        <div class="form-group col">
-          <label class="control-label">
-            Input:
-            <div class="form-group">
-              <input type="text" formControlName="input" placeholder="Type Here" class="form-control input-md">
-            </div>
-          </label>
-        </div>
+<!-- Modal -->
+<div #dt class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add an Event!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </form>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <h4>Title</h4>
+              <input type="text" id="confId" class="form-control input-md" placeholder="Title" formControlName="title">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="ui-g-12 ui-md-12">
+                <h4>From</h4>
+                <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                  placeholder="dd/mm/yyyy" formControlName="fromDate" [showTime]="true" dateFormat="dd/mm/yy"
+                  name="something">
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col">
+              <div class="ui-g-12 ui-md-12">
+                <h4>To</h4>
+                <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                  placeholder="dd/mm/yyyy" formControlName="toDate" [showTime]="true" dateFormat="dd/mm/yy"
+                  name="something">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-  </div>
-</ng-template>
-<!-- <pre>{{closeResult}}</pre> -->
+</div>
