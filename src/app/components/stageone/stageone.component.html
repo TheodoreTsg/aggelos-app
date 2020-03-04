@@ -1,12 +1,13 @@
 <div class="container-fluid">
+  <button class="btn btn-success applychanges" (click)="applyChanges()">Apply Changes</button>
   <div class="container wrapper">
-      <full-calendar defaultView="dayGridMonth" (dateClick)="handleDateClick($event)" [editable]="true"
-        [aspectRatio]="2.3" (select)="selectDates($event)" [selectable]="true" [eventLimit]="3"
-        (eventClick)="eventClicked($event)" [plugins]="calendarPlugins" [events]="calendarEvents" [header]="{ left: 'prevYear,prev,next,nextYear today',
+    <full-calendar #myCalendar defaultView="dayGridMonth" (dateClick)="handleDateClick($event)" [editable]="true"
+      [aspectRatio]="2.15" (select)="selectDates($event)" [selectable]="true" [eventLimit]="3"
+      (eventResize)="eventResize($event)" (eventDrop)="eventDragged($event)" (eventClick)="eventClicked($event)"
+      [plugins]="calendarPlugins" [events]="calendarEvents" [header]="{ left: 'prevYear,prev,next,nextYear today',
                                     center: 'title',
                                     right: ' dayGridMonth,timeGridWeek,timeGridDay'}">
-      </full-calendar>
-      <button class="btn btn-success" (click)="applyChanges()">Apply Changes</button>
+    </full-calendar>
   </div>
 </div>
 
