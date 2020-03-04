@@ -17,6 +17,7 @@ declare var jQuery: any;
   styleUrls: ['./stagethree.component.css']
 })
 export class StagethreeComponent implements OnInit {
+
   @ViewChild('dt') dt: ElementRef;
   @ViewChild('myCalendar') myCalendar: FullCalendarComponent;
   form: FormGroup;
@@ -38,19 +39,18 @@ export class StagethreeComponent implements OnInit {
     this.calendarEvents = CalendarEventThree;
   }
 
-  handleDateClick(arg: any) {
+  handleDateClick(arg: any) { // called when user clicks in a Date box
     this.form.reset();
     this.form.controls['fromDate'].setValue(arg.date);
     this.form.controls['toDate'].setValue(arg.date);
     jQuery(this.dt.nativeElement).modal('show');
   }
 
-  selectDates(arg: any) {
+  selectDates(arg: any) { // called when user selects a period of time
     this.form.reset();
     const tempDate = new Date();
     tempDate.setHours(0, 0, 0);
     tempDate.setDate(arg.end.getDate() - 1);
-    // console.log('Selected ' + arg.startStr + ' to ' + arg.endStr);
     this.form.controls['fromDate'].setValue(arg.start);
     this.form.controls['toDate'].setValue(tempDate);
     jQuery(this.dt.nativeElement).modal('show');
@@ -70,7 +70,7 @@ export class StagethreeComponent implements OnInit {
         this.calendarEvents = calendarEvents;
       }
     }
-    if (!foundFlag) {
+    if (!foundFlag) { // if there is no existing event, enter for creation
       const eventIndex = +this.calendarEvents[this.calendarEvents.length - 1].id + 1; // create new id
       this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new arra
         id: eventIndex.toString(),
@@ -83,7 +83,7 @@ export class StagethreeComponent implements OnInit {
     jQuery(this.dt.nativeElement).modal('hide');
   }
 
-  eventClicked(arg: any) {
+  eventClicked(arg: any) { // called when user clicks on an existing event in order to see details/modify
     this.form.reset();
     const eventObj = arg.event;
     if (eventObj.end === null) {
@@ -101,9 +101,8 @@ export class StagethreeComponent implements OnInit {
     }
   }
 
-  eventDragged(event: any) {
+  eventDragged(event: any) { // called when user drags an event
     if (event.event.end === null) {
-      // alert(event.event.title + ' is at ' + this.datepipe.transform(event.event.start, 'dd/MM/yyyy, h:mm a'));
       for (let i = 0; i < this.calendarEvents.length; i++) {
         if (event.event.id === this.calendarEvents[i].id) {
           const calendarEvents = this.calendarEvents.slice();       // update an existing event by creating clone and reassign the array
@@ -115,8 +114,6 @@ export class StagethreeComponent implements OnInit {
         }
       }
     } else {
-      // alert(event.event.title + ' is at ' + this.datepipe.transform(event.event.start, 'dd/MM/yyyy, h:mm a') +
-      //   ' - ' + this.datepipe.transform(event.event.end, 'dd/MM/yyyy, h:mm a'));
       for (let i = 0; i < this.calendarEvents.length; i++) {
         if (event.event.id === this.calendarEvents[i].id) {
           const calendarEvents = this.calendarEvents.slice();       // update an existing event by creating clone and reassign the array
@@ -131,9 +128,8 @@ export class StagethreeComponent implements OnInit {
     }
   }
 
-  eventResize(event: any) {
+  eventResize(event: any) {  // called when user resizes an event
     if (event.event.end === null) {
-      // alert(event.event.title + ' is at ' + this.datepipe.transform(event.event.start, 'dd/MM/yyyy, h:mm a'));
       for (let i = 0; i < this.calendarEvents.length; i++) {
         if (event.event.id === this.calendarEvents[i].id) {
           const calendarEvents = this.calendarEvents.slice();       // update an existing event by creating clone and reassign the array
@@ -145,8 +141,6 @@ export class StagethreeComponent implements OnInit {
         }
       }
     } else {
-      // alert(event.event.title + ' is at ' + this.datepipe.transform(event.event.start, 'dd/MM/yyyy, h:mm a') +
-      //   ' - ' + this.datepipe.transform(event.event.end, 'dd/MM/yyyy, h:mm a'));
       for (let i = 0; i < this.calendarEvents.length; i++) {
         if (event.event.id === this.calendarEvents[i].id) {
           const calendarEvents = this.calendarEvents.slice();       // update an existing event by creating clone and reassign the array
@@ -161,9 +155,8 @@ export class StagethreeComponent implements OnInit {
     }
   }
 
-  applyChanges() {
+  applyChanges() { // apply all the changes that have been made in the calendar
     if (confirm('Are you sure you want to submit?')) {
-      // console.log('Events are ', this.calendarEvents);
       this.submitService.updateCalendar(this.calendarEvents)
         .pipe(take(1)).subscribe(response => {
           console.log(response);

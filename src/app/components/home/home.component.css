@@ -9,9 +9,7 @@
 
 .row .col-sm:hover {
   cursor: pointer;
-  background-color: black;
-  color: white;
-  /* background-color: rgb(224, 224, 224); */
+  background-color: lightgray;
   transition: all 0.5s;
 }
 
