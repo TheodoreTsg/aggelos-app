@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid || (form.untouched || form.pristine)">Submit</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </form>
