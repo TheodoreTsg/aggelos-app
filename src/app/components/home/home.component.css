@@ -9,12 +9,14 @@
 
 .row .col-sm:hover {
   cursor: pointer;
-  background-color: rgb(224, 224, 224);
-  transition: all 0.4s;
+  background-color: black;
+  color: white;
+  /* background-color: rgb(224, 224, 224); */
+  transition: all 0.5s;
 }
 
 .carousel {
-  background-color: lightgray;
+  background-color: ghostwhite;
   margin-top: 10px;
 }
 

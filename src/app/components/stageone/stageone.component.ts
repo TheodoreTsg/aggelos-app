@@ -3,7 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { EventInput } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarEv } from '../../mockups/mocks';
+import { CalendarEventOne } from '../../mockups/mocks';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -36,7 +36,7 @@ export class StageoneComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.calendarEvents = CalendarEv;
+    this.calendarEvents = CalendarEventOne;
   }
 
   handleDateClick(arg: any) {

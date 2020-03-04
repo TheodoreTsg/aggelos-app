@@ -1,42 +1,61 @@
 <div class="container-fluid">
-  <!-- <a routerLink="">Back</a> -->
-  <form [formGroup]="form" (ngSubmit)="submitForm()">
-    <div class="form-row">
-      <div class="col-md-4 mb-3">
-        <label>First name</label>
-        <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+  <button class="btn btn-success applychanges" (click)="applyChanges()">Apply Changes</button>
+  <div class="container wrapper">
+    <full-calendar #myCalendar defaultView="dayGridMonth" (dateClick)="handleDateClick($event)" [editable]="true"
+      [aspectRatio]="2.15" (select)="selectDates($event)" [selectable]="true" [eventLimit]="3"
+      (eventResize)="eventResize($event)" (eventDrop)="eventDragged($event)" (eventClick)="eventClicked($event)"
+      [plugins]="calendarPlugins" [events]="calendarEvents" [header]="{ left: 'prevYear,prev,next,nextYear today',
+                                    center: 'title',
+                                    right: ' dayGridMonth,timeGridWeek,timeGridDay'}">
+    </full-calendar>
+  </div>
+</div>
+
+<!-- Modal -->
+<div #dt class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add an Event!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="col-md-4 mb-3">
-        <label>Last name</label>
-        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationTooltipUsername">Username</label>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Username" formControlName="userName">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <h4>Title</h4>
+              <input type="text" id="confId" class="form-control input-md" placeholder="Title" formControlName="title">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="ui-g-12 ui-md-12">
+                <h4>From</h4>
+                <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                  placeholder="dd/mm/yyyy" formControlName="fromDate" [showTime]="true" dateFormat="dd/mm/yy"
+                  name="something">
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col">
+              <div class="ui-g-12 ui-md-12">
+                <h4>To</h4>
+                <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                  placeholder="dd/mm/yyyy" formControlName="toDate" [showTime]="true" dateFormat="dd/mm/yy"
+                  name="something">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid || (form.untouched || form.pristine)">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label>City</label>
-        <input type="text" class="form-control" placeholder="City" formControlName="city">
-      </div>
-      <div class="col-md-3 mb-3">
-        <label>State</label>
-        <select class="custom-select" formControlName="state">
-          <option selected disabled value="">Choose...</option>
-          <option>State 1</option>
-          <option>State 2</option>
-          <option>State 3</option>
-          <option>State 4</option>
-        </select>
-      </div>
-      <div class="col-md-3 mb-3">
-        <label>Zip</label>
-        <input type="text" class="form-control" placeholder="Zip" formControlName="zip">
-      </div>
-    </div>
-    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Submit form</button>
-  </form>
+  </div>
 </div>

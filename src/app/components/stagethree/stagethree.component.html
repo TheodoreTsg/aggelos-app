@@ -1,34 +1,61 @@
 <div class="container-fluid">
-  <!-- <a routerLink="">Back</a> -->
-  <div id="demo" class="carousel slide" data-ride="carousel">
+  <button class="btn btn-success applychanges" (click)="applyChanges()">Apply Changes</button>
+  <div class="container wrapper">
+    <full-calendar #myCalendar defaultView="dayGridMonth" (dateClick)="handleDateClick($event)" [editable]="true"
+      [aspectRatio]="2.15" (select)="selectDates($event)" [selectable]="true" [eventLimit]="3"
+      (eventResize)="eventResize($event)" (eventDrop)="eventDragged($event)" (eventClick)="eventClicked($event)"
+      [plugins]="calendarPlugins" [events]="calendarEvents" [header]="{ left: 'prevYear,prev,next,nextYear today',
+                                    center: 'title',
+                                    right: ' dayGridMonth,timeGridWeek,timeGridDay'}">
+    </full-calendar>
+  </div>
+</div>
 
-    <!-- Indicators -->
-    <ul class="carousel-indicators">
-      <li data-target="#demo" data-slide-to="0" class="active"></li>
-      <li data-target="#demo" data-slide-to="1"></li>
-      <li data-target="#demo" data-slide-to="2"></li>
-    </ul>
-
-    <!-- The slideshow -->
-    <div class="carousel-inner">
-      <div class="carousel-item text-center active">
-        <img #stageone src="../../../assets/images/stageone.jpg" alt="stageOne" (click)="stageClicked(stageone.alt)">
+<!-- Modal -->
+<div #dt class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add an Event!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="carousel-item text-center">
-        <img #stagetwo src="../../../assets/images/stagetwo.jpg" alt="stageTwo" (click)="stageClicked(stagetwo.alt)">
-      </div>
-      <div class="carousel-item text-center">
-        <img #stagethree src="../../../assets/images/stagethree.jpg" alt="stageThree" (click)="stageClicked(stagethree.alt)">
-      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <h4>Title</h4>
+              <input type="text" id="confId" class="form-control input-md" placeholder="Title" formControlName="title">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="ui-g-12 ui-md-12">
+                <h4>From</h4>
+                <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                  placeholder="dd/mm/yyyy" formControlName="fromDate" [showTime]="true" dateFormat="dd/mm/yy"
+                  name="something">
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col">
+              <div class="ui-g-12 ui-md-12">
+                <h4>To</h4>
+                <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"
+                  placeholder="dd/mm/yyyy" formControlName="toDate" [showTime]="true" dateFormat="dd/mm/yy"
+                  name="something">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid || (form.untouched || form.pristine)">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
-
-    <!-- Left and right controls -->
-    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </a>
-
   </div>
 </div>
